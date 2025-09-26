@@ -1,5 +1,22 @@
-#!/usr/bin/env node
+const express = require('express');
+const app = express();
+const routes = require('./routes');
 
+testing
+// Middleware i parsers
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Routes
+app.use('/api', routes);
+
+// app.listen zamiast console.log
+const PORT = process.env.PORT || 3000;
+app.listen(PORT);
+
+// Eksport dla testów
+module.exports = app;
+=======
 // https://stackoverflow.com/questions/7697038/more-than-10-lines-in-a-node-js-stack-error
 Error.stackTraceLimit = Infinity;
 
@@ -149,3 +166,4 @@ if (require.main === module) {
 }
 
 module.exports = { start };
+next

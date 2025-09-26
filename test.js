@@ -1,3 +1,16 @@
+ testing
+const { expect } = require('chai');
+const { generateDemoData } = require('./test_lib');
+
+describe('feed', () => {
+  beforeEach(async () => {
+    await generateDemoData();
+  });
+
+  it('shows articles by followers', async () => {
+    expect(true).to.be.true;
+  });
+
 const { generateDemoData, closeDb } = require('./test_lib');
 
 let db; // tutaj przechowamy demo data + sequelize
@@ -16,4 +29,5 @@ it('feed shows articles by followers', async function() {
   // przykładowy test
   const articles = await Article.findAll({ where: { authorId: alice.id } });
   console.log(articles.length); // powinno zwrócić 1
+next
 });

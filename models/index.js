@@ -1,3 +1,11 @@
+ testing
+const { getSequelize, sync } = require('./sequelize');
+
+const sequelize = getSequelize();
+sync(sequelize, { force: false }).catch((err) => {});
+
+module.exports = sequelize;
+=======
 const fs = require('fs');
 const path = require('path');
 
@@ -199,3 +207,4 @@ module.exports = {
   getSequelize,
   sync,
 };
+ next

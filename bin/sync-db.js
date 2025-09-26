@@ -1,10 +1,18 @@
 #!/usr/bin/env node
+const { getSequelize, sync } = require('../models');
 
-// Sync the database. If the database exists, migrate.
-// Otherwise, just create directly from the latest DB settings to speed things up.
-//
-// Originally added for next build since we don't know how to run hooks.
-// before next build, and the database wouldn't exist otherwise.
+async function main() {
+  const sequelize = getSequelize();
+  await sync(sequelize, { force: true });
+  // console.log('Database synced successfully'); 
+  await sequelize.close();
+}
+
+testing
+main().catch((err) => {
+  // console.error(err);
+  process.exit(1);
+});
 
 ;(async () => {
   const path = require('path');
@@ -40,3 +48,4 @@
     process.exit(out.status);
   }
 })();
+ next

@@ -1,8 +1,14 @@
+ testing
+const { DataTypes, Sequelize, Op } = require('sequelize');
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+=======
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const Sequelize = require('sequelize');
 const { DataTypes, Op } = Sequelize;
 
+ next
 const config = require('../front/config');
 
 module.exports = (sequelize) => {
@@ -20,15 +26,26 @@ module.exports = (sequelize) => {
         validate: {
           min: {
             args: 3,
-            msg: 'Username must start with a letter, have no spaces, and be at least 3 characters.',
+            msg:
+              'Username must start with a letter, have no spaces, and be at ' +
+              'least 3 characters.',
           },
           max: {
             args: 40,
-            msg: 'Username must start with a letter, have no spaces, and be at less than 40 characters.',
+            msg:
+              'Username must start with a letter, have no spaces, and be ' +
+              'less than 40 characters.',
           },
           is: {
+testing
+            args: /^[A-Za-z][A-Za-z0-9-_]+$/i,
+            msg:
+              'Username must start with a letter, have no spaces, and be 2 - ' +
+              '40 characters.',
+
             args: /^[A-Za-z][A-Za-z0-9-_]+$/i, // must start with letter and only have letters, numbers, dashes
-            msg: 'Username must start with a letter, have no spaces, and be 3 - 40 characters.',
+            msg: 'Username must start with a letter, have no spaces, and be 2 - 40 characters.',
+ next
           },
         },
       },
@@ -89,17 +106,19 @@ module.exports = (sequelize) => {
   };
 
   User.prototype.toProfileJSONFor = async function (user) {
-    let data = {
+    return {
       username: this.username,
       bio: this.bio === undefined ? '' : this.bio,
-      // This one returns the default image if empty, unlike toAuthJSON which returns nothing.
-      // Therefore, this one is what you want when viewing profiles, and toAuthJSON is what
-      // you want when loading profile settings forms for which we want an empty field.
       image:
         this.image ||
         'https://static.productionready.io/images/smiley-cyrus.jpg',
       following: user ? await user.hasFollow(this.id) : false,
     };
+ testing
+  };
+
+  // ... inne metody jak findAndCountArticlesByFollowed, getArticleCountByFollowed itp.
+=======
     return data;
   };
 
@@ -177,6 +196,7 @@ module.exports = (sequelize) => {
       })
     ).dataValues.count;
   };
+ next
 
   User.validPassword = function (user, password) {
     let hash = crypto
